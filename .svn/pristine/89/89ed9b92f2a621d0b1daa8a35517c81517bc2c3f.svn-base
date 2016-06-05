@@ -1,0 +1,26 @@
+/**
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明:
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年4月10日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext.define("BXFW.store.PositionListStore", {
+	extend : "Ext.data.Store",
+	model : "BXFW.model.PositionModel",
+	autoLoad : true,
+	proxy : {
+		type : 'rest',
+		url : '',
+		reader : {
+			type : 'json',
+			root : 'data'
+		}
+	}
+});

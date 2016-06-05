@@ -1,0 +1,8 @@
+{
+id:"root",
+leaf:false,
+name : "root",
+children:[
+    {id:'menu-401',text:'基本信息',leaf:true},
+	{id:'menu-402',text:'承继管理',leaf:true}
+]} 

@@ -1,0 +1,32 @@
+server:
+    port: 8080
+    contextPath: /bxfw
+spring:
+    profiles:
+        active: local
+    datasource:
+        dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        url: jdbc:mysql://116.255.196.191/insurancedb?characterEncoding=utf8
+        username: 2fd9fd1903841d37
+        password: 45b339c0ad5fccc574a20567e9fd9ff5
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 500
+        useServerPrepStmts: true
+    redis:
+        host: 223.202.102.25
+        port: 6379
+        password: 123456
+        timeout: 100000
+        maxTotal: 300
+        maxIdle: 100
+        maxWaitMillis: 1000*100
+        testOnBorrow: true
+logging:
+    config: classpath:config/logback-dev.xml
+lifeinsurancesystem:
+    bxfw:
+        bxfwSys: dev
+        ossImgUrl: http://www.sxfwxt.com/bxfw-dev
+        
+        

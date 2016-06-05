@@ -1,0 +1,137 @@
+/**
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明:内勤入司管理，包括添加、编辑、查询
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年4月10日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext.define('BXFW.view.system.UserListView', {
+	extend : 'Ext.grid.Panel',
+	alias : 'widget.userlistview',
+	requires : [ 'Ext.data.*', 'Ext.grid.*', 'Ext.util.*',
+			'Ext.toolbar.Paging', 'Ext.ux.ProgressBarPager' ],
+	xtype : 'progress-bar-pager',
+	stripeRows : true,
+	height : 533,
+	initComponent : function() {
+		this.store = 'UserStore';
+		this.columns = [ {
+			text : '省公司',
+			dataIndex : 'companyName'
+		}, {
+			text : '市公司',
+			dataIndex : 'companyName'
+		}, {
+			text : '营业部',
+			dataIndex : 'companyName'
+		}, {
+			text : '业务部',
+			dataIndex : 'companyName'
+		}, {
+			text : '部门',
+			dataIndex : 'companyName'
+		}, {
+			text : '职位',
+			dataIndex : 'companyName'
+		}, {
+			text : '姓名',
+			dataIndex : 'companyName'
+		}, {
+			text : '内勤工号',
+			dataIndex : 'companyName'
+		}, {
+			text : '状态',
+			dataIndex : 'companyName'
+		}, {
+			text : '操作',
+			width : 200,
+			dataIndex : 'companyName',
+			renderer : function() {
+				return '';
+			}
+		} ];
+		this.tbar = [ {
+			text : '新增',
+			xtype : 'button',
+			iconCls : 'icon-add',
+			action : "addUser"
+		}, '-', {
+			xtype : 'combobox',
+			store : new Ext.data.ArrayStore({
+				fields : [ 'id', 'name' ],
+				data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+			}),
+			width : 100,
+			queryMode : 'local',
+			displayField : 'name',
+			emptyText : '省公司',
+			margin : '0 6 0 0',
+			valueField : 'abbr'
+		}, {
+			xtype : 'combobox',
+			store : new Ext.data.ArrayStore({
+				fields : [ 'id', 'name' ],
+				data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+			}),
+			width : 100,
+			queryMode : 'local',
+			displayField : 'name',
+			emptyText : '市公司',
+			margin : '0 6 0 0',
+			valueField : 'abbr'
+		}, {
+			xtype : 'combobox',
+			store : new Ext.data.ArrayStore({
+				fields : [ 'id', 'name' ],
+				data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+			}),
+			width : 100,
+			queryMode : 'local',
+			displayField : 'name',
+			margin : '0 6 0 0',
+			emptyText : '营业部',
+			valueField : 'abbr'
+		}, {
+			xtype : 'combobox',
+			store : new Ext.data.ArrayStore({
+				fields : [ 'id', 'name' ],
+				data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+			}),
+			width : 100,
+			queryMode : 'local',
+			margin : '0 6 0 0',
+			displayField : 'name',
+			emptyText : '业务部',
+			valueField : 'abbr'
+		}, {
+			xtype : 'combobox',
+			store : new Ext.data.ArrayStore({
+				fields : [ 'id', 'name' ],
+				data : [ [ 1, '在职' ], [ 2, '离职' ], [ 3, '离司' ] ]
+			}),
+			width : 100,
+			queryMode : 'local',
+			margin : '0 6 0 0',
+			displayField : 'name',
+			emptyText : '在职状态',
+			valueField : 'abbr'
+		}, {
+			xtype : 'textfield',
+			name : 'email',
+			width : 100,
+			emptyText : '输入姓名',
+			margin : '0 6 0 0'
+		}, {
+			text : '查询',
+			xtype : 'button',
+			action : "searchInfo"
+		} ];
+		this.callParent(arguments);
+	}
+});

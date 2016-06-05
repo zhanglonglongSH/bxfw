@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//  
+EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="sql.com.lifeInsuranceSystem.mapper.systemMap">
+	<!-- 查询系统默认代码 -->
+	<select id="getDefaultInnerCode" resultType="Long">
+	    SELECT Func_GetDefaultInnerCode() as bxfwCode
+	</select>
+	<!-- 查询系统自定义代码 -->
+	<select id="getSystemNum" resultType="Long">
+	    SELECT Func_GetSystemNum() as bxfwCode
+	</select>
+    <!-- 保存签约公司信息 -->
+	<insert id="saveSignedCompanyInfo" parameterType="java.util.HashMap">
+	    insert into bxfw_companyInfo(companyNameAttr,companyName,companyAdderss,mobile,mailBox,createTime,updateTime,expiredDate,operatorCode,operatorIP) 
+	    value(#{companyNameAttr},#{companyName},#{companyAdderss},#{mobile},#{mailBox},now(),now(),#{expiredDate},#{operatorCode},#{operatorIP})
+	</insert>
+    <!-- 保存公司信息、省公司、市公司、营业部、业务部 -->
+	<insert id="saveCompanyInfo" parameterType="com.lifeinsurancesystem.model.CompanyInfo">
+	    insert into 
+	    <if test="orgType == 1">
+	       bxfw_province 
+	    </if>
+	    <if test="orgType == 2">
+	       bxfw_city 
+	    </if>
+	    <if test="orgType == 3">
+	       bxfw_county 
+	    </if>
+	    <if test="orgType == 4">
+	       bxfw_business_hall 
+	    </if>
+	    (companyCode,orgCode,parentCode,orgName,note,createTime,updateTime,operatorCode,operatorIP) 
+	    values (#{companyCode},#{orgCode},#{parentCode},#{orgName},#{note},now(),now(),#{operatorCode},#{operatorIP})
+	</insert>
+	<!-- 修改公司 -->
+	<update id="updateCompanyInfo" parameterType="com.lifeinsurancesystem.model.CompanyInfo">
+	    update 
+	    <if test="orgType == 1">
+	       bxfw_province
+	    </if>
+	    <if test="orgType == 2">
+	       bxfw_city
+	    </if>
+	    <if test="orgType == 3">
+	       bxfw_county
+	    </if>
+	    <if test="orgType == 4">
+	       bxfw_business_hall
+	    </if>
+	    set orgName=#{orgName},note=#{note},updateTime=now() where id=#{id} and companyCode=#{companyCode}
+	</update>
+	<!-- 逻辑删除公司信息-->
+	<update id="delCompanyInfo" parameterType="com.lifeinsurancesystem.model.CompanyInfo">
+	    update 
+	    <if test="orgType == 1">
+	       bxfw_province
+	    </if>
+	    <if test="orgType == 2">
+	       bxfw_city
+	    </if>
+	    <if test="orgType == 3">
+	       bxfw_county
+	    </if>
+	    <if test="orgType == 4">
+	       bxfw_business_hall
+	    </if>
+	    set flag=1,updateTime=now() where id=#{id}
+	</update>
+	<!-- 查询公司列表 -->
+	<select id="getCompanyInfoList" parameterType="com.lifeinsurancesystem.model.CompanyInfo" resultType="com.lifeinsurancesystem.model.CompanyInfo">
+	    <if test="orgType == 1">
+	       select a.id,a.orgCode,a.orgName,a.companyCode,a.note,a.flag from bxfw_province a where a.flag=0 and a.companyCode=#{companyCode}
+	       <if test="orgName != null and orgName != ''">
+		    and a.orgName like  CONCAT('${orgName}','%') 
+		   </if>
+	    </if>
+	    <if test="orgType == 2">
+	       SELECT b.id,a.orgCode,a.orgName,b.orgCode as cityOrgCode,b.orgName as cityOrgName,b.companyCode,b.note,b.flag from bxfw_province a 
+           RIGHT JOIN bxfw_city b on a.orgCode=b.parentCode and a.flag=0  
+           where b.flag=0 and b.companyCode=#{companyCode}
+           <if test="orgName != null and orgName != ''">
+		    and b.orgName like  CONCAT('${orgName}','%') 
+		   </if>
+	    </if>
+	    <if test="orgType == 3">
+	       SELECT c.id,a.orgCode,a.orgName,b.orgCode as cityOrgCode,b.orgName as cityOrgName,c.orgCode as countyOrgCode,
+	       c.orgName as countyOrgName,c.companyCode,c.note,c.flag from bxfw_province a 
+		   RIGHT JOIN bxfw_city b on a.orgCode=b.parentCode and a.flag=0  
+		   RIGHT JOIN bxfw_county c on b.orgCode=c.parentCode and b.flag=0  
+		   where c.flag=0 and c.companyCode=#{companyCode}
+		   <if test="orgName != null and orgName != ''">
+		    and c.orgName like  CONCAT('${orgName}','%') 
+		   </if>
+	    </if>
+	    <if test="orgType == 4">
+	        SELECT DISTINCT d.id,a.orgCode,a.orgName,b.orgCode as cityOrgCode,b.orgName as cityOrgName,c.orgCode as countyOrgCode,
+	        c.orgName as countyOrgName,d.orgCode as hallOrgCode,d.orgName as hallOrgName,d.companyCode,d.note,d.flag from bxfw_province a 
+			RIGHT JOIN bxfw_city b on a.orgCode=b.parentCode and a.flag=0  
+			RIGHT JOIN bxfw_county c on b.orgCode=c.parentCode and a.flag=0  
+			RIGHT JOIN bxfw_business_hall d on c.orgCode=d.parentCode and c.flag=0  
+			where d.flag=0 and d.companyCode=#{companyCode}
+			<if test="orgName != null and orgName != ''">
+		    and d.orgName like  CONCAT('${orgName}','%') 
+		    </if>
+	    </if>
+	</select>
+	<!-- 或系统常量 -->
+	<select id="getSysConstant" parameterType="java.util.HashMap"  resultType="com.lifeinsurancesystem.model.ConstantBean">
+	    select a.constantCode,a.constanName,a.description from bxfw_constant a where 1=1 
+	    <if test="constantCode != null and constantCode != ''">
+	       and a.constantCode like CONCAT('${constantCode}','%')
+	    </if>
+	    <if test="constanType != null">
+	       and a.constanType=#{constanType}
+	    </if>
+	    order by a.constantCode
+	</select>
+	<!--保存部门信息-->
+	<insert id="saveDeptInfo" parameterType="com.lifeinsurancesystem.model.DeptInfo">
+	    insert into bxfw_dept(orgCode,deptCode,deptName,orgType,note,createTime,updateTime,operatorCode,operatorIP) 
+	    value(#{orgCode},#{deptCode},#{deptName},#{orgType},#{note},now(),now(),#{operatorCode},#{operatorIP})
+	</insert>
+	<!--修改部门信息-->
+	<update id="updateDeptInfo" parameterType="com.lifeinsurancesystem.model.DeptInfo">
+	    update bxfw_dept set updateTime=now()
+	    <if test="orgCode != null and orgCode != ''">
+	       ,orgCode=#{orgCode}
+	    </if>
+	    <if test="deptName != null and deptName != ''">
+	       ,deptName=#{deptName}
+	    </if>
+	    <if test="note != null and note != ''">
+	       ,note=#{note}
+	    </if>
+        where deptCode=#{deptCode}
+	</update>
+	<!--删除部门信息-->
+	<update id="delDeptInfo" parameterType="Long">
+	    update bxfw_dept set flag=1,updateTime=now() where deptCode=#{deptCode} 
+	</update>
+	<!--查询部门信息 -->
+	<select id="getDeptInfoList" parameterType="com.lifeinsurancesystem.model.DeptInfo"  resultType="com.lifeinsurancesystem.model.DeptInfo">
+	    select b.orgName,a.orgCode,a.deptCode,a.deptName,a.orgType,a.note,a.createTime,a.updateTime,a.operatorCode,a.operatorIP from 
+	    bxfw_dept a LEFT JOIN 
+	    <if test="orgType == 1">
+	       bxfw_province b
+	    </if>
+	    <if test="orgType == 2">
+	       bxfw_city b
+	    </if>
+	    <if test="orgType == 3">
+	       bxfw_county b
+	    </if>
+	    <if test="orgType == 4">
+	       bxfw_business_hall b
+	    </if>
+	     on a.orgCode=b.orgCode and b.flag=0 
+	    where a.flag=0 and a.orgType=#{orgType} and b.companyCode=1
+	    <if test="orgName != null and orgName != ''">
+	    and b.orgName like  CONCAT('${orgName}','%') 
+	    </if>
+	    <if test="orgCode != null and orgCode != ''">
+	    and b.orgCode = #{orgCode}
+	    </if>
+	    order by a.createTime desc
+	</select>
+	<!--保存职位信息-->
+	<insert id="savePositionInfo" parameterType="com.lifeinsurancesystem.model.PositionInfo">
+	    insert into bxfw_position(deptCode,positionCode,positionName,note,createTime,updateTime,operatorCode,operatorIP) 
+	    value(#{deptCode},#{positionCode},#{positionName},#{note},now(),now(),#{operatorCode},#{operatorIP})
+	</insert>
+	<!--修改职位信息-->
+	<update id="updatePositionInfo" parameterType="com.lifeinsurancesystem.model.PositionInfo">
+	    update bxfw_position set updateTime=now()
+	    <if test="deptCode != null and deptCode != ''">
+	       ,deptCode=#{deptCode}
+	    </if>
+	    <if test="positionName != null and positionName != ''">
+	       ,positionName=#{positionName}
+	    </if>
+	    <if test="note != null and note != ''">
+	       ,note=#{note}
+	    </if>
+        where positionCode=#{positionCode}
+	</update>
+	<!--删除职位信息-->
+	<update id="delPositionInfo" parameterType="Long">
+	    update bxfw_position set flag=1,updateTime=now() where positionCode=#{positionCode} 
+	</update>
+	<!--查询职位信息 -->
+	<select id="getPositionInfoList" parameterType="com.lifeinsurancesystem.model.PositionInfo"  resultType="com.lifeinsurancesystem.model.PositionInfo">
+	    select b.orgName,a.deptCode,a.deptName,c.positionCode,c.positionName,a.note,c.createTime,c.updateTime,c.operatorCode,c.operatorIP 
+	    from bxfw_position c
+	    LEFT JOIN bxfw_dept a  on a.deptCode=c.deptCode 
+        LEFT JOIN 
+        <if test="orgType == 1">
+	       bxfw_province b
+	    </if>
+	    <if test="orgType == 2">
+	       bxfw_city b
+	    </if>
+	    <if test="orgType == 3">
+	       bxfw_county b
+	    </if>
+	    <if test="orgType == 4">
+	       bxfw_business_hall b
+	    </if>
+         on a.orgCode=b.orgCode where a.flag=0 and b.flag=0 and a.orgType=#{orgType} and b.companyCode=1
+	    <if test="deptName != null and deptName != ''">
+	     and a.deptName like  CONCAT('${deptName}','%') 
+	    </if>
+	    order by a.createTime desc
+	</select>
+</mapper>

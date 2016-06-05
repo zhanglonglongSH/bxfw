@@ -1,0 +1,97 @@
+/** 
+* @公司名称: xxxxxxxxxxxx
+* @版权信息: 版权归属15202125130@163.com
+* @包          名: com.lifeinsurancesystem.Application
+* @描          述: app
+* @作          者: yaojj 
+* @邮          箱: 15202125130@163.com 
+* @创建日期: 2016年4月10日 下午9:54:38 
+* @修改日期: 2016年4月10日 下午9:54:38
+* @版权序号: V0.0.1
+*/
+package com.lifeinsurancesystem;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.SimpleCommandLinePropertySource;
+
+@EnableAutoConfiguration
+@ComponentScan("com.lifeinsurancesystem")
+public class Application{
+
+	private static final Logger log = LoggerFactory.getLogger(Application.class);
+	public static final String SPRING_PROFILE_LOCAL = "local";
+    public static final String SPRING_PROFILE_DEVELOPMENT = "dev";
+    public static final String SPRING_PROFILE_PRODUCTION = "prod";
+    public static final String SPRING_PROFILE_FAST = "fast";
+    public static final String SPRING_PROFILE_CLOUD = "cloud";
+    public static final String SYSTEM_ACCOUNT = "system";
+
+	@Inject
+	private Environment env;
+	
+
+	/**
+	 * Initializes simu800.
+	 * <p/>
+	 * Spring profiles can be configured with a program arguments
+	 * --spring.profiles.active=your-active-profile
+	 * <p/>
+	 */
+	@PostConstruct
+	public void initApplication() throws IOException {
+		if (env.getActiveProfiles().length == 0) {
+			log.warn("No Spring profile configured, running with default configuration");
+		} else {
+			log.info("Running with Spring profile(s) : {}",
+					Arrays.toString(env.getActiveProfiles()));
+		}
+	}
+
+
+	/**
+	 * Main method, used to run the application.
+	 */
+	public static void main(String[] args) throws UnknownHostException {
+		SpringApplication app = new SpringApplication(Application.class);
+		app.setShowBanner(false);
+
+		SimpleCommandLinePropertySource source = new SimpleCommandLinePropertySource(
+				args);
+		
+		// Check if the selected profile has been set as argument.
+		// if not the development profile will be added
+		addDefaultProfile(app, source);
+		// addLiquibaseScanPackages();
+		Environment env = app.run(args).getEnvironment();
+		log.info(
+				"Access URLs:\n----------------------------------------------------------\n\t"
+						+ "Local: \t\thttp://127.0.0.1:{}\n\t"
+						+ "External: \thttp://{}:{}\n----------------------------------------------------------",
+				env.getProperty("server.port"), InetAddress.getLocalHost()
+						.getHostAddress(), env.getProperty("server.port"));
+
+	}
+
+	/**
+	 * Set a default profile if it has not been set
+	 */
+	private static void addDefaultProfile(SpringApplication app,
+			SimpleCommandLinePropertySource source) {
+		
+		if (!source.containsProperty("spring.profiles.active")) {
+			app.setAdditionalProfiles(SPRING_PROFILE_LOCAL);
+		}
+	}
+}

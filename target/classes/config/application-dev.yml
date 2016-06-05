@@ -1,0 +1,30 @@
+server:
+    port: 8080
+    contextPath: /bxfw
+spring:
+    profiles:
+        active: dev
+    datasource:
+        secret-file: /etc/secret-dev.properties
+        dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+    redis:
+        host: 223.202.102.25
+        port: 6379
+        password: 123456
+        timeout: 100000
+        maxTotal: 300
+        maxIdle: 100
+        maxWaitMillis: 1000*100
+        testOnBorrow: true
+logging:
+    config: classpath:config/logback-dev.xml
+lifeinsurancesystem:
+    bxfw:
+        bxfwSys: dev
+        ossImgUrl: http://www.sxfwxt.com/bxfw-dev
+
+        

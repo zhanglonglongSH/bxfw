@@ -1,0 +1,13 @@
+<html>
+<head>
+<title>bxfw</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="/bxfw/styles/menuicos.css"/>
+<script type="text/javascript" src="/bxfw/rely/extjs4.0/include-ext.js"></script>
+<script type="text/javascript" src="/bxfw/app/app.js"></script>
+</head>
+<body>
+    <div id="center1" class="x-hide-display">
+    </div>
+</body>
+</html>

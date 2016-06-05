@@ -1,0 +1,40 @@
+p {
+    margin:5px;
+}
+a{
+	text-decoration: none; 
+}
+.settings {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/folder_wrench.png);
+}
+.nav {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/folder_go.png);
+}
+.icon-add {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/user_add.gif);
+}
+.icon-info {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/information.png);
+}
+.icon-delete {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/delete.gif);
+}
+.icon-edit {
+    background-image:url(../rely/extjs4.0/resources/icons/fam/user_edit.png);
+}
+.icon-save{
+	background-image:url(../rely/extjs4.0/resources/icons/fam/save.gif);
+}
+.icon-reset{
+	background-image:url(../rely/extjs4.0/resources/icons/fam/stop.png);
+}
+.upload-icon{
+	background-image:url(../rely/extjs4.0/resources/icons/fam/image_add.png);
+}
+
+.toolbar11{ background-color:Red;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background-color:#bee1eb;}
+::-webkit-scrollbar-thumb{background-color:#c0c0c0;}
+::-webkit-scrollbar-thumb:hover {background-color:#9c3}
+::-webkit-scrollbar-thumb:active {background-color:#00aff0}}

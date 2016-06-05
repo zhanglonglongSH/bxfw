@@ -1,0 +1,67 @@
+# Disable the spring security default configuration from spring-boot-actuator
+management.security.enabled: true
+security.basic.enabled: false
+
+# JMX
+spring.jmx.default-domain: bxfw
+spring.jmx.enabled: false 
+spring.jmx.server: mbeanServer 
+
+# Disable Jolokia - An http/json bridge for remote JMX access
+endpoints.jolokia.enabled: false
+
+# JMX ENDPOINT
+endpoints.jmx.domain: bxfw
+endpoints.jmx.enabled: false
+# Additional static properties to append to all ObjectNames of MBeans representing Endpoints.
+endpoints.jmx.static-names: xxx.properties
+endpoints.jmx.unique-names: false
+
+# security configuration (this key should be unique for your application, and kept secret)
+jhipster.security.rememberme.key: 8a1cb157d4f3fc318f0ec4656e54129a2f6567e6
+
+security:
+    user:
+        name: admin
+        password: bxfw@security
+
+management:
+    security:
+        role: SUPERUSER
+
+
+async:
+    corePoolSize: 2
+    maxPoolSize: 50
+    queueCapacity: 10000
+
+spring:
+    profiles:
+        active: local
+    mvc:
+        locale: zh_CN
+        date-format: yyyy-MM-dd
+    mail:
+        host: localhost
+        port: 25
+        user:
+        password:
+        protocol: smtp
+        tls: false
+        auth: false
+        from: simuWeixin@localhost
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    messageSource:
+        cacheSeconds: 1
+lifeinsurancesystem:
+    aliyun:
+        oss:
+            accessKeyId: w8vo3p4Nah3ZhWKi
+            accessKeySecret: syPXMU0DlrdW8rudIKFgyhuqfZbFxY
+            endPoint: http://oss-cn-beijing.aliyuncs.com
+            imgPoint: http://www.sxfwxt.com
+            bucketName: bxfw

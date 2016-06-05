@@ -1,0 +1,10 @@
+{
+id:"root",
+leaf:false,
+name : "root",
+children:[
+    {id:'menu-301',text:'寿险首期',leaf:true},
+	{id:'menu-302',text:'寿险续期',leaf:true},
+	{id:'menu-303',text:'寿险保全',leaf:true},
+	{id:'menu-304',text:'寿险理赔',leaf:true}
+]} 

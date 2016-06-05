@@ -1,0 +1,566 @@
+/**
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明:
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年4月10日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext.define('BXFW.view.system.EditUserView', {
+	extend : 'Ext.window.Window',
+	alias : 'widget.edituserview',
+	title : "新增用户信息",
+	width : 850,
+	height : 500,
+	modal : true,
+	layout : "fit",
+	initComponent : function() {
+		this.items = [ {
+			xtype : 'form',
+			bodyPadding : 5,
+			autoScroll : true,
+			defaults : {
+				anchor : '100%',
+				labelWidth : 100
+			},
+			items : [ {
+				xtype : 'fieldset',
+				title : '基本信息',
+				defaultType : 'textfield',
+				layout : 'anchor',
+				defaults : {
+					anchor : '100%'
+				},
+				items : [ {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '省公司',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 160,
+						labelWidth : 60,
+						queryMode : 'local',
+						displayField : 'name',
+						emptyText : '请选择',
+						margin : '0 6 0 0',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '市公司',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 60,
+						queryMode : 'local',
+						displayField : 'name',
+						emptyText : '请选择',
+						margin : '0 6 0 0',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '业务部',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 60,
+						queryMode : 'local',
+						displayField : 'name',
+						margin : '0 6 0 0',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '营业部',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 60,
+						queryMode : 'local',
+						margin : '0 6 0 0',
+						displayField : 'name',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '部门',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 40,
+						queryMode : 'local',
+						displayField : 'name',
+						margin : '0 6 0 0',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '职位',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 160,
+						labelWidth : 60,
+						queryMode : 'local',
+						margin : '0 6 0 0',
+						displayField : 'name',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '姓名',
+						name : 'email',
+						width : 150,
+						labelWidth : 60,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						fieldLabel : '证件号码',
+						name : '111',
+						width : 245,
+						labelWidth : 60,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						xtype : 'radiogroup',
+						fieldLabel : '性别',
+						labelWidth : 30,
+						width : 130,
+						anchor : 'none',
+						layout : {
+							autoFlex : false
+						},
+						defaults : {
+							name : 'ccType',
+							margin : '0 10 0 0'
+						},
+						items : [ {
+							inputValue : '0',
+							boxLabel : '男',
+							checked : true
+						}, {
+							inputValue : '1',
+							boxLabel : '女'
+						} ]
+					}, {
+						fieldLabel : '民族',
+						name : 'email',
+						width : 80,
+						labelWidth : 30,
+						margin : '0 6 0 0'
+					} ]
+
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '出生年月',
+						labelWidth : 60,
+						name : '123',
+						width : 160,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						fieldLabel : '政治面貌',
+						name : '111',
+						width : 150,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						xtype : 'radiogroup',
+						fieldLabel : '婚姻状态',
+						labelWidth : 60,
+						width : 180,
+						anchor : 'none',
+						layout : {
+							autoFlex : false
+						},
+						defaults : {
+							name : 'ccType2',
+							margin : '0 5 0 0'
+						},
+						items : [ {
+							inputValue : '0',
+							boxLabel : '已婚',
+							checked : true
+						}, {
+							inputValue : '1',
+							boxLabel : '未婚'
+						} ]
+					}, {
+						fieldLabel : '电子邮箱',
+						labelWidth : 60,
+						name : '123',
+						width : 175,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						fieldLabel : '学历',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 100,
+						labelWidth : 30,
+						queryMode : 'local',
+						displayField : 'name',
+						margin : '0 6 0 0',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '手机',
+						labelWidth : 60,
+						name : '123',
+						width : 160,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						fieldLabel : '座机',
+						name : '111',
+						width : 150,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '外语水平',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 60,
+						queryMode : 'local',
+						displayField : 'name',
+						margin : '0 6 0 0',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					}, {
+						fieldLabel : '电脑水平',
+						xtype : 'combobox',
+						store : new Ext.data.ArrayStore({
+							fields : [ 'id', 'name' ],
+							data : [ [ 1, '团员' ], [ 2, '党员' ], [ 3, '其他' ] ]
+						}),
+						width : 150,
+						labelWidth : 70,
+						queryMode : 'local',
+						displayField : 'name',
+						margin : '0 6 0 0',
+						emptyText : '请选择',
+						valueField : 'abbr'
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ , {
+						fieldLabel : '户口地址',
+						name : '111',
+						width : 316,
+						labelWidth : 60,
+						margin : '0 6 0 0',
+						allowBlank : false
+					}, {
+						fieldLabel : '详细地址',
+						name : '111',
+						width : 460,
+						labelWidth : 60,
+						margin : '0 6 0 0',
+						allowBlank : false
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						xtype : 'textarea',
+						name : 'note',
+						labelWidth : 60,
+						width : 782,
+						fieldLabel : '备注信息'
+					} ]
+				} ]
+			}, {
+				xtype : 'fieldset',
+				title : '影印件上传',
+				defaultType : 'textfield',
+				layout : 'anchor',
+				defaults : {
+					anchor : '100%'
+				},
+				items : [ {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						xtype : 'box', // 或者 xtype: 'component',
+						width : 100, // 图片宽度
+						height : 100, // 图片高度
+						margin : '0 10 0 0',
+						autoEl : {
+							tag : 'img', // 指定为img标签
+							src : 'http:/_2.png' // 指定url路径
+						}
+					}, {
+						xtype : 'button',
+						width : 100, // 图片宽度
+						height : 100, // 图片高度
+						text : '上传影印件',
+						action : 'uploadFiles'
+					} ]
+				} ]
+			}, {
+				xtype : 'fieldset',
+				title : '教育情况',
+				defaultType : 'textfield',
+				layout : 'anchor',
+				defaults : {
+					anchor : '100%'
+				},
+				items : [ {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '时间段1',
+						name : '111',
+						width : 200,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '学校及专业',
+						name : '111',
+						width : 420,
+						labelWidth : 80,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '招收方式',
+						name : '111',
+						width : 150,
+						labelWidth : 70,
+						margin : '0 6 0 0',
+						value : '统招'
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '时间段2',
+						name : '111',
+						width : 200,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '学校及专业',
+						name : '111',
+						width : 420,
+						labelWidth : 80,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '招收方式',
+						name : '111',
+						width : 150,
+						labelWidth : 70,
+						margin : '0 6 0 0',
+						value : '统招'
+					} ]
+				} ]
+			}, {
+				xtype : 'fieldset',
+				title : '工作经历',
+				defaultType : 'textfield',
+				layout : 'anchor',
+				defaults : {
+					anchor : '100%'
+				},
+				items : [ {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '时间段1',
+						name : '111',
+						width : 200,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '公司名称',
+						name : '111',
+						width : 420,
+						labelWidth : 80,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '职务名称',
+						name : '111',
+						width : 150,
+						labelWidth : 70,
+						margin : '0 6 0 0'
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						fieldLabel : '时间段2',
+						name : '111',
+						width : 200,
+						labelWidth : 60,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '公司名称',
+						name : '111',
+						width : 420,
+						labelWidth : 80,
+						margin : '0 6 0 0'
+					}, {
+						fieldLabel : '职务名称',
+						name : '111',
+						width : 150,
+						labelWidth : 70,
+						margin : '0 6 0 0'
+					} ]
+				} ]
+			}, {
+				xtype : 'fieldset',
+				title : '家庭情况',
+				defaultType : 'textfield',
+				layout : 'anchor',
+				defaults : {
+					anchor : '100%'
+				},
+				items : [ {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						xtype : 'container',
+						layout : 'hbox',
+						defaultType : 'textfield',
+						margin : '0 0 5 0',
+						items : [ {
+							fieldLabel : '姓名1',
+							name : '111',
+							width : 200,
+							labelWidth : 60,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '与本人关系',
+							name : '111',
+							width : 150,
+							labelWidth : 80,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '工作单位',
+							name : '111',
+							width : 240,
+							labelWidth : 70,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '联系电话',
+							name : '111',
+							width : 175,
+							labelWidth : 70,
+							margin : '0 6 0 0'
+						} ]
+					} ]
+				}, {
+					xtype : 'container',
+					layout : 'hbox',
+					defaultType : 'textfield',
+					margin : '0 0 5 0',
+					items : [ {
+						xtype : 'container',
+						layout : 'hbox',
+						defaultType : 'textfield',
+						margin : '0 0 5 0',
+						items : [ {
+							fieldLabel : '姓名2',
+							name : '111',
+							width : 200,
+							labelWidth : 60,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '与本人关系',
+							name : '111',
+							width : 150,
+							labelWidth : 80,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '工作单位',
+							name : '111',
+							width : 240,
+							labelWidth : 70,
+							margin : '0 6 0 0'
+						}, {
+							fieldLabel : '联系电话',
+							name : '111',
+							width : 175,
+							labelWidth : 70,
+							margin : '0 6 0 0'
+						} ]
+					} ]
+				} ]
+			} ]
+		} ];
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			dock : 'bottom',
+			ui : 'footer',
+			layout : {
+				pack : 'center'
+			},
+			items : [ {
+				action : 'saveUserInfo',
+				minWidth : 80,
+				text : '保存'
+			}, {
+				action : 'cancelSaveUser',
+				minWidth : 80,
+				text : '取消'
+			} ]
+		} ];
+		this.callParent();
+	}
+});

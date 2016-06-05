@@ -1,0 +1,85 @@
+/**
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明:省公司、市公司、营业部、业务部机构列表
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年4月10日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext.define('BXFW.view.system.CompanyListView', {
+	extend : 'Ext.grid.Panel',
+	alias : 'widget.companylistview',
+	requires : [ 'Ext.data.*', 'Ext.grid.*', 'Ext.util.*','Ext.toolbar.Paging', 'Ext.ux.ProgressBarPager' ],
+	stripeRows : true,
+	height : 533,
+	initComponent : function() {
+		this.itemId = 'companylistview';
+		this.store = 'CompanyListStore';
+		this.columns = [ {
+			text : '省机构',
+			sortable : true,
+			dataIndex : 'orgName'
+		},  {
+			text : '市机构',
+			sortable : true,
+			dataIndex : 'cityOrgName'
+		},  {
+			text : '营业厅',
+			sortable : true,
+			dataIndex : 'countyOrgName'
+		}, {
+			text : '业务部',
+			sortable : true,
+			dataIndex : 'hallOrgName'
+		},{
+			text : '备注信息',
+			sortable : true,
+			dataIndex : 'note'
+		}, {
+			xtype : 'actioncolumn',
+			text : '操作',
+			tdCls : 'action',
+			items : [
+					{
+						iconCls : 'icon-edit',
+						tooltip : '修改',
+						action : 'gridedit',
+						handler : function(grid, rowIndex, colIndex,node, e, record) {
+							this.fireEvent('itemclick', this, grid,rowIndex, colIndex, node,e, record);
+						}
+					},
+					'-',
+					{
+						iconCls : 'icon-delete',
+						tooltip : '删除',
+						action : 'griddelete',
+						handler : function(grid, rowIndex, colIndex,node, e, record) {
+							this.fireEvent('itemclick', this, grid,rowIndex, colIndex, node,e, record);
+						}
+					} ]
+		} ];
+		this.tbar = [ {
+			text : '新增',
+			xtype : 'button',
+			iconCls : 'icon-add',
+			action : "addComapny"
+		}, '-', {
+			xtype : 'textfield',
+			width : 100,
+			itemId : 'searchOrgNameId',
+			name : 'searchOrgName',
+			emptyText : '请输入省 '
+		}, {
+			text : '查询',
+			xtype : 'button',
+			iconCls : 'icon-info',
+			action : "searchInfo"
+		} ];
+		this.callParent(arguments);
+	}
+});

@@ -1,0 +1,60 @@
+{
+id:"root",
+leaf:false,
+name : "root",
+children:[
+	{id:'menu-101',text:'省公司',leaf:false,"expanded":true,companytype:'1',
+		children:[
+		   {id:'menu-101-101',text:'机构管理',viewname:'companylistview',leaf:true},
+		   {id:'menu-101-102',text:'部门管理',viewname:'departmentlistview',leaf:true},
+		   {id:'menu-101-103',text:'职位管理',viewname:'positionlistview',leaf:true}
+		]
+	},
+	{id:'menu-102',text:'市公司',leaf:false,"expanded":false,companytype:'2',
+		children:[
+		   {id:'menu-102-101',text:'机构管理',viewname:'companylistview',leaf:true},
+		   {id:'menu-102-102',text:'部门管理',viewname:'departmentlistview',leaf:true},
+		   {id:'menu-102-103',text:'职位管理',viewname:'positionlistview',leaf:true}
+		]
+	},
+	{id:'menu-103',text:'营业部',leaf:false,"expanded":false,companytype:'3',
+		children:[
+		   {id:'menu-103-101',text:'机构管理',viewname:'companylistview',leaf:true},
+		   {id:'menu-103-102',text:'部门管理',viewname:'departmentlistview',leaf:true},
+		   {id:'menu-103-103',text:'职位管理',viewname:'positionlistview',leaf:true}
+		]
+	},
+	{id:'menu-104',text:'业务部',leaf:false,"expanded":false,companytype:'4',
+		children:[
+		   {id:'menu-104-101',text:'机构管理',viewname:'companylistview',leaf:true},
+		   {id:'menu-104-102',text:'部门管理',viewname:'departmentlistview',leaf:true},
+		   {id:'menu-104-103',text:'职位管理',viewname:'positionlistview',leaf:true}
+		]
+	},
+	{id:'menu-105',text:'内勤入司',viewname:'userlistview',leaf:true},
+	{id:'menu-106',text:'权限管理',leaf:false,"expanded":false,
+		children:[
+		   {id:'menu-106-101',text:'人员',viewname:'userauthorizelistview',leaf:true},
+		   {id:'menu-106-102',text:'职位',viewname:'positionauthorizelistview',leaf:true}
+		]
+	},
+	{id:'menu-107',text:'产品管理',leaf:false,"expanded":false,
+		children:[
+		   {id:'menu-107-101',text:'险种分类',viewname:'insurancetypelistview',leaf:true},
+		   {id:'menu-107-102',text:'保险公司',viewname:'insurancecompanylistview',leaf:true},
+		   {id:'menu-107-103',text:'险种管理',leaf:true}
+		]
+	}
+	,{id:'menu-108',text:'佣金管理',leaf:false,"expanded":false,
+		children:[
+		   {id:'menu-108-101',text:'寿险对账',leaf:true},
+		   {id:'menu-108-102',text:'结算',leaf:true},
+		   {id:'menu-108-103',text:'佣金发放',leaf:true}
+		]
+	},{id:'menu-109',text:'安全设置',leaf:false,"expanded":false,
+		children:[
+		   {id:'menu-109-101',text:'密码修改',leaf:true}
+		]
+	}
+	
+]} 
