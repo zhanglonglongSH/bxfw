@@ -1,0 +1,277 @@
+/**
+ * 险种分类信息管理
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明:左侧菜单事件控制
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年4月10日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext
+		.define(
+				'BXFW.controller.InsuranceTypeListCrl',
+				{
+					extend : 'Ext.app.Controller',
+					requires : [ 'BXFW.view.system.InsuranceTypeListView' ],
+					refs : [ {
+						ref : 'insuranceTypeListView',
+						selector : 'insuranceTypeListView'
+					}, {
+						ref : 'insuranceTypeEditView',
+						selector : 'insuranceTypeEditView'
+					} ],
+					stores : [ 'InsuranceTypeListStore' ],
+					init : function() {
+						this
+								.control({
+									'insuranceTypeListView' : {
+										render : this.initPanel,
+										itemdblclick : this.itemdblclickEvent
+									},
+									'insuranceTypeListView button[action=addInsuranceType]' : {
+										click : this.addInsuranceType
+									},
+									'insuranceTypeEditView button[action=saveInsuranceTypeInfo]' : {
+										click : this.saveInsuranceTypeInfo
+									},
+									'insuranceTypeEditView button[action=saveAddInsuranceTypeInfo]' : {
+										click : this.saveAddInsuranceTypeInfo
+									},
+									'insuranceTypeEditView button[action=cancelSaveInsuranceType]' : {
+										click : this.cancelSaveInsuranceType
+									},
+									'insuranceTypeListView actioncolumn' : {
+										itemclick : this.itemclick
+									}
+								});
+					},
+					/**
+					 * 处理事件方法
+					 */
+					initPanel : function(obj, eOpts) {
+						var _self = this;
+						_self.gridLoad();
+					},
+					/**
+					 * 初始化页面基础数据
+					 * 
+					 * @return {}
+					 */
+					infoObj : function() {
+						var _base64util = Ext.widget('base64util');
+						var _insuranceTypeListView;
+						Ext.getCmp('mainTab').items
+								.each(function(item) {
+									if (item.items.length > 0
+											&& item.items.get(0).xtype == 'insuranceTypeListView') {
+										_insuranceTypeListView = item.items
+												.get(0);
+									}
+								});
+
+						return {
+							base64util : _base64util,
+							insuranceTypeListView : _insuranceTypeListView
+						};
+					},
+					/**
+					 * 添加险种
+					 * 
+					 * @param {}
+					 *            formData
+					 */
+					addInsuranceType : function(btn) {
+						var _self = this;
+						var _addDeptInfo = Ext.widget('insuranceTypeEditView');
+						_addDeptInfo.show();
+						_self.infoOrgData();
+					},
+					/**
+					 * 修改险种信息
+					 * 
+					 * @param {}
+					 *            formData
+					 */
+					updateInsuranceType : function(formData) {
+						var _self = this;
+						var _addDeptInfo = Ext.widget('insuranceTypeEditView');
+						if (formData != null && formData.insCodeName != ''
+								&& formData.insTypeName != '') {
+							_addDeptInfo.height = 220;
+							Ext.getCmp('insCodeId').setValue(formData.insCode);
+							Ext.getCmp('insTypeId').setValue(formData.insType);
+							Ext.getCmp('noteId').setValue(formData.note);
+						}
+						_addDeptInfo.show();
+					},
+					/**
+					 * 自定义查询险种信息
+					 */
+					searchInfo : function(btn) {
+						var _self = this;
+						var _parm = {};
+						btn.ownerCt.items.each(function(item) {
+							if (item.name == 'searchOrgName') {
+								_parm.searchOrgName = item.getValue();
+							}
+						});
+						_self.gridLoad(_parm);
+					},
+					/**
+					 * 保存险种
+					 * 
+					 * @param {}
+					 *            btn
+					 */
+					saveInsuranceTypeInfo : function(btn) {
+						this.ajaxInsuranceTypeInfo(btn, true);
+					},
+					/**
+					 * 保存并继续添加
+					 * 
+					 * @param {}
+					 *            btn
+					 */
+					saveAddInsuranceTypeInfo : function(btn) {
+						this.ajaxInsuranceTypeInfo(btn, false);
+					},
+					/**
+					 * 取消保存
+					 * 
+					 * @param {}
+					 *            btn
+					 */
+					cancelSaveInsuranceType : function(btn) {
+						var _win = btn.up("window");
+						_win.close();
+					},
+					/**
+					 * 双击grid事件
+					 * 
+					 * @param {}
+					 *            grid
+					 * @param {}
+					 *            record
+					 */
+					itemdblclickEvent : function(grid, record) {
+						var _self = this;
+						var formData = record.data;
+						_self.updateInsuranceType(formData);
+					},
+					/**
+					 * 操作栏中按钮事件
+					 * 
+					 * @param {}
+					 *            column
+					 * @param {}
+					 *            grid
+					 * @param {}
+					 *            rowIndex
+					 * @param {}
+					 *            colIndex
+					 * @param {}
+					 *            node
+					 * @param {}
+					 *            e
+					 * @param {}
+					 *            record
+					 */
+					itemclick : function(column, grid, rowIndex, colIndex,
+							node, e, record) {
+						var _self = this;
+						if (node.action == 'gridedit') {
+							var _formData = grid.getStore().data.items[rowIndex].data;
+							_self.updateInsuranceType(_formData);
+						}
+						if (node.action == 'griddelete') {
+							var _formData = {
+								orgId : grid.getStore().data.items[rowIndex].data.id,
+								orgType : _self.infoObj().orgType
+							};
+							_self.delInsuranceTypeInfo(_formData);
+						}
+					},
+					/**
+					 * 删除险种
+					 */
+					delInsuranceTypeInfo : function(formData) {
+						var _self = this;
+						var _base64util = _self.infoObj().base64util;
+						Ext.Ajax.request({
+							url : _projectName
+									+ '/system/delInsuranceTypeInfo/'
+									+ _base64util
+											.base64(encodeURIComponent(JSON
+													.stringify(formData))),
+							method : 'DELETE',
+							success : function(response, options) {
+								_self.gridLoad();
+							},
+							failure : function(response, options) {
+								Ext.MessageBox.alert('提示', '删除险种信息失败 ');
+							}
+						});
+					},
+					/**
+					 * 保存险种
+					 */
+					ajaxInsuranceTypeInfo : function(btn, winstate) {
+						var _self = this;
+						var _win = btn.up("window");
+						var _form = _win.getComponent('save-insuranceType');
+						var _formData = _form.getValues();
+						var _orgType = _self.infoObj().orgType;
+
+						if (_formData.orgName == '') {
+							Ext.MessageBox.alert('提示', '机构名称不能为空');
+							return;
+						}
+						_formData.orgCode = Ext.getCmp(
+								'orgCodeId' + (_orgType == 4 ? 3 : _orgType))
+								.getValue();
+						_formData.orgType = _orgType;
+						var _base64util = _self.infoObj().base64util;
+						Ext.Ajax.request({
+							url : _projectName
+									+ '/system/saveInsuranceTypeInfo/'
+									+ _base64util
+											.base64(encodeURIComponent(JSON
+													.stringify(_formData))),
+							method : 'POST',
+							success : function(response, options) {
+								_self.gridLoad();
+								if (!winstate) {
+									Ext.getCmp('orgIds').setValue('');
+									Ext.getCmp('orgNameId').setValue('');
+									Ext.getCmp('noteId').setValue('');
+								} else {
+									_win.close();
+								}
+							},
+							failure : function(response, options) {
+								Ext.MessageBox.alert('提示', '险种信息保存失败 ');
+							}
+						});
+					},
+					/**
+					 * 公用查询，查询险种基本信息
+					 */
+					gridLoad : function(parms) {
+						var _self = this;
+						var _base64util = _self.infoObj().base64util;
+						var _parmData = _base64util
+								.base64(encodeURIComponent(JSON.stringify({
+
+								})));
+						var _insuranceTypeListViewStore = this.infoObj().insuranceTypeListView.store;
+						_insuranceTypeListViewStore.getProxy().url = _projectName
+								+ "/system/getInsuranceTypeInfoList/"
+								+ _parmData;
+						_insuranceTypeListViewStore.load();
+					}
+				});

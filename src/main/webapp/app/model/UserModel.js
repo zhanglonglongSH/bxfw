@@ -13,5 +13,5 @@
  */
 Ext.define("BXFW.model.UserModel", {
 	extend : "Ext.data.Model",
-	fields : [ 'id', 'companyName' ]
+	fields : [ 'id', 'companyName', 'verifyCode' ]
 });

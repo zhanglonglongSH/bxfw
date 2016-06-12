@@ -212,4 +212,11 @@ EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 	    </if>
 	    order by a.createTime desc
 	</select>
+	<!--查询用户信息-->
+	<select id="getOfficeStaffUser" parameterType="com.lifeinsurancesystem.model.OfficeStaffUserBean"  resultType="com.lifeinsurancesystem.model.OfficeStaffUserBean">
+	    select a.* 
+	    from bxfw_officeStaff_user a
+	    where a.userName = #{userName} and a.userPassword =  #{userPassword}
+		limit 0,1
+	</select>
 </mapper>

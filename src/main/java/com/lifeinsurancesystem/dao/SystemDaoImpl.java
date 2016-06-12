@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import com.lifeinsurancesystem.model.CompanyInfo;
 import com.lifeinsurancesystem.model.ConstantBean;
 import com.lifeinsurancesystem.model.DeptInfo;
+import com.lifeinsurancesystem.model.OfficeStaffUserBean;
 import com.lifeinsurancesystem.model.PositionInfo;
 
 @Service
@@ -154,5 +155,11 @@ public class SystemDaoImpl implements ISystemDao {
 		Long code=sqlSessionTemplate.selectOne("sql.com.lifeInsuranceSystem.mapper.systemMap.getSystemNum");
 		if(code == null) return 0l;
 		return code;
+	}
+	@Override
+	public List<OfficeStaffUserBean>  getOfficeStaffUser(OfficeStaffUserBean officeStaffUserBean) {
+		// TODO Auto-generated method stub
+		List<OfficeStaffUserBean>  officeStaffUserBeans=sqlSessionTemplate.selectList("sql.com.lifeInsuranceSystem.mapper.systemMap.getOfficeStaffUser", officeStaffUserBean);
+		return officeStaffUserBeans;
 	}
 }

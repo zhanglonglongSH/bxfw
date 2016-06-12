@@ -1,5 +1,5 @@
 server:
-    port: 8080
+    port: 8088
     contextPath: /bxfw
 spring:
     profiles:
@@ -14,9 +14,9 @@ spring:
         prepStmtCacheSqlLimit: 500
         useServerPrepStmts: true
     redis:
-        host: 223.202.102.25
+        host: 123.57.185.91
         port: 6379
-        password: 123456
+        password: 45b339c0ad5fccc574a20567e9fd9ff5
         timeout: 100000
         maxTotal: 300
         maxIdle: 100

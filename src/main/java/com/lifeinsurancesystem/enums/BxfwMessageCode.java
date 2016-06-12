@@ -11,6 +11,8 @@
 */
 package com.lifeinsurancesystem.enums;
 public enum BxfwMessageCode {
+    	
+    
 	/**
 	 * 空数据{@value 1007}
 	 */
@@ -22,7 +24,9 @@ public enum BxfwMessageCode {
 	/**
 	 * 通信失败 {@value 1009}
 	 */
-	,FAILURE("通信失败", 1009);
+	,FAILURE("通信失败", 1009)
+	,VERIFYCODE_SHOW("验证码显示", 1010)
+	,VERIFYCODE_ERROR("验证码错误", 1011);
 	/**
 	 * 描述
 	 */
@@ -30,6 +34,7 @@ public enum BxfwMessageCode {
 	/**
 	 * 返回码
 	 */
+	
 	private int code;
 
 	private BxfwMessageCode(String message, int code) {

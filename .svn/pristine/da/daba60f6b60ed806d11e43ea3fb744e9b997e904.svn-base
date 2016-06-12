@@ -1,0 +1,38 @@
+/** 
+ * @公司名称: xxxxxxxxxxxx
+ * @版权信息: 版权归属15202125130@163.com
+ * @包          名: com.lifeinsurancesystem.controller
+ * @描          述: 文件描述
+ * @作          者: yaojj 
+ * @邮          箱: 15202125130@163.com 
+ * @创建日期: 2016年6月7日 下午4:48:53 
+ * @修改日期: 2016年6月7日 下午4:48:53
+ * @版权序号: V0.0.1
+ */
+package com.lifeinsurancesystem.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.lifeinsurancesystem.service.IProductManageService;
+
+/**
+ * @类          名: ProductManageController 
+ * @描          述: TODO
+ * @作          者: yaojj 
+ * @邮          箱: 15202125130@163.com 
+ * @创建日期: 2016年6月7日 下午4:48:56 
+ * @修改日期: 2016年6月7日 下午4:48:56
+ */
+@Controller
+@RequestMapping("/productManage")
+public class ProductManageController {
+	@Autowired
+	private IProductManageService productManageServiceImpl;
+	public ProductManageController() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
+

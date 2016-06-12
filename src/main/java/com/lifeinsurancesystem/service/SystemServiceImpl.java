@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import com.lifeinsurancesystem.dao.ISystemDao;
 import com.lifeinsurancesystem.model.CompanyInfo;
 import com.lifeinsurancesystem.model.ConstantBean;
 import com.lifeinsurancesystem.model.DeptInfo;
+import com.lifeinsurancesystem.model.OfficeStaffUserBean;
 import com.lifeinsurancesystem.model.PositionInfo;
 
 @Service
@@ -162,5 +164,12 @@ public class SystemServiceImpl implements ISystemService {
 	        return code;
 		}
 		return null;
+	}
+	
+	@Override
+	public List<OfficeStaffUserBean>  getOfficeStaffUser(OfficeStaffUserBean officeStaffUserBean) {
+		// TODO Auto-generated method stub 
+		List<OfficeStaffUserBean> OfficeStaffUserBeans = systemDaoImpl.getOfficeStaffUser(officeStaffUserBean);
+		return OfficeStaffUserBeans;
 	}
 }

@@ -1,0 +1,84 @@
+/**
+ * 
+ * 包名路径:app/view
+ * 
+ * 文件说明: 保险分类管理
+ * 
+ * 作者姓名:yaojj
+ * 
+ * 创建日期:2016年6月07日 下午10:04:08
+ * 
+ * 修改日期:
+ * 
+ */
+Ext.define('BXFW.view.system.InsuranceTypeEditView', {
+	extend : 'Ext.window.Window',
+	alias : 'widget.insuranceTypeEditView',
+	title : "新增",
+	width : 400,
+	height : 260,
+	modal : true,
+	layout : "fit",
+	initComponent : function() {
+		this.items = [ {
+			itemId : 'save-insuranceType',
+			xtype : 'form',
+			bodyPadding : 5,
+			defaults : {
+				anchor : '100%',
+				labelWidth : 100
+			},
+			items : [ {
+				xtype : 'fieldset',
+				title : '添加保险分类',
+				items : [ {
+					xtype : 'textfield',
+					labelWidth : 80,
+					width : 300,
+					id : 'typeCodeId',
+					name : 'typeCode',
+					fieldLabel : '代码'
+				}, {
+					xtype : 'textfield',
+					labelWidth : 80,
+					width : 300,
+					id : 'typeNameId',
+					name : 'typeName',
+					fieldLabel : '名称'
+				}, {
+					xtype : 'textarea',
+					id : 'descriptionId',
+					name : 'description',
+					labelWidth : 80,
+					width : 300,
+					fieldLabel : '备注信息'
+				} ]
+			} ]
+		} ];
+		this.dockedItems = [ {
+			xtype : 'toolbar',
+			dock : 'bottom',
+			ui : 'footer',
+			layout : {
+				pack : 'center'
+			},
+			items : [ {
+				iconCls : 'icon-save',
+				action : 'saveInsuranceType',
+				minWidth : 40,
+				text : '保存'
+			}, {
+				iconCls : 'icon-save',
+				action : 'saveAddInsuranceType',
+				minWidth : 80,
+				text : '保存继续添加'
+			}, {
+				iconCls : 'icon-reset',
+				action : 'cancelSaveInsuranceType',
+				minWidth : 40,
+				text : '取消'
+			} ]
+		} ]
+		this.callParent();
+	}
+});

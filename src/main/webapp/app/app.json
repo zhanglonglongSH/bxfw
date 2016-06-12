@@ -1,0 +1,9 @@
+{
+    "production": {
+        "compressor" : {
+            "type" : "closure",
+            "ambiguateProperties" : true,
+            "foldConstants"       : true
+        }
+    }
+}

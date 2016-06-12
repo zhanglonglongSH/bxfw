@@ -17,6 +17,7 @@ import java.util.Map;
 import com.lifeinsurancesystem.model.CompanyInfo;
 import com.lifeinsurancesystem.model.ConstantBean;
 import com.lifeinsurancesystem.model.DeptInfo;
+import com.lifeinsurancesystem.model.OfficeStaffUserBean;
 import com.lifeinsurancesystem.model.PositionInfo;
 
 /**
@@ -128,5 +129,14 @@ public interface ISystemService {
      * @异常处理:
      */
 	public String getSystemNum(String dataType,String companyPix);
-    
+	/**
+	 * 
+	 * @方法描述:查询用户信息
+	 * @作          者: zhangll
+	 * @邮          箱: 792963711@qq.com 
+	 * @参数描述: @param officeStaffUserBean
+	 * @参数描述: @return
+	 * @异常处理:
+	 */
+	public  List<OfficeStaffUserBean>  getOfficeStaffUser(OfficeStaffUserBean officeStaffUserBean) ;
 }
